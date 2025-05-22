@@ -1,7 +1,7 @@
 Summary: Library providing the Gnome XSLT engine
 Name: libxslt
 Version: 1.1.28
-Release: 7%{?dist}%{?extra_release}
+Release: 9%{?dist}%{?extra_release}
 License: MIT
 Group: Development/Libraries
 Source: ftp://xmlsoft.org/XSLT/libxslt-%{version}.tar.gz
@@ -21,6 +21,9 @@ Patch2: libxslt-1.1.28-CVE-2019-18197.patch
 Patch3: libxslt-1.1.28-CVE-2019-11068.patch
 # CVE-2016-1841
 Patch4: Fix-use-after-free-in-xsltDocumentFunctionLoadDocument.patch
+
+Patch10: CVE-2024-55549.patch
+Patch11: CVE-2025-24855.patch
 
 %description
 This C library allows to transform XML files into other XML files
@@ -62,6 +65,8 @@ with XPath functions written in Python.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch10 -p1
+%patch11 -p1
 # Now fix up the timestamps of patched docs files
 # ChangeLog needs to be retouched before gzip as well
 # since timestamp affects output
@@ -131,6 +136,13 @@ make tests
 %doc python/tests/*.xsl
 
 %changelog
+* Tue Apr 29 2025 Trinity Quirk <tquirk@ciq.com> - 1.1.28-9
+- Include alloc changes into previous patch (RHEL-83515)
+
+* Tue Apr 22 2025 Trinity Quirk <tquirk@ciq.com> - 1.1.28-8
+- Patch CVE-2024-55549
+- Patch CVE-2025-24855
+
 * Tue Jan 07 2025 Pratham Patel <ppatel@ciq.com> - 1.1.28-7
 - Fix CVE-2016-1841
 
